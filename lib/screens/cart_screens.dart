@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../provider/cart.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/cart.dart';
+import '../widgets/cart_tile.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cartscreen';
@@ -23,7 +25,7 @@ class CartScreen extends StatelessWidget {
                   Text('Total'),
                   Spacer(),
                   Chip(
-                    label: Text('\$${cart.totalAmount}'),
+                    label: Text('\$${cart.totalAmount.toStringAsFixed(2)}'),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   FlatButton(
@@ -41,7 +43,13 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: cart.items.length,
               itemBuilder: (ctx, i) => Container(
-                child: Text("Sample"),
+                child: CartTile(
+                  cart.items.values.toList()[i].id,
+                  cart.items.keys.toList()[i],
+                  cart.items.values.toList()[i].title,
+                  cart.items.values.toList()[i].quantity,
+                  cart.items.values.toList()[i].price,
+                ),
               ),
             ),
           )
