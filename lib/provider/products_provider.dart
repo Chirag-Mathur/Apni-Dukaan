@@ -49,13 +49,21 @@ class ProductsProvider with ChangeNotifier {
     return [..._items];
   }
 
-  void showFavouritesOnly(){
-    _showFavouritesOnly = true;
-  }
 
-  void showAll(){
-    _showFavouritesOnly = false;
+  List<Product> get favouriteItems {
+    return _items.where((element) => element.isFavourite).toList();
   }
+  
+
+  // void showFavouritesOnly(){
+  //   _showFavouritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll(){
+  //   _showFavouritesOnly = false;
+  //    notifyListeners();
+  // }
 
   Product findById(String id)
   {
