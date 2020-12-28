@@ -5,6 +5,7 @@ import 'package:shop_app/provider/product.dart';
 
 import '../provider/cart.dart';
 import '../screens/product_details_page.dart';
+
 class ProductsItem extends StatelessWidget {
   // final String id;
   // final String title;
@@ -50,6 +51,18 @@ class ProductsItem extends StatelessWidget {
               color: Theme.of(context).accentColor,
               onPressed: () {
                 cart.addItem(product.id, product.title, product.price);
+                Scaffold.of(context).hideCurrentSnackBar();
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Item added to Cart !'),
+                    action: SnackBarAction(
+                      label: 'UNDO',
+                      onPressed: () {
+                        cart.removeSingleItem(product.id);
+                      },
+                    ),
+                  ),
+                );
               },
             ),
           ),

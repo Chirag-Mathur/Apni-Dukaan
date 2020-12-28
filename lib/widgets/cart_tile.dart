@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../provider/cart.dart';
 
-
 class CartTile extends StatelessWidget {
   final String id;
   final String productId;
@@ -31,9 +30,39 @@ class CartTile extends StatelessWidget {
         alignment: Alignment.centerRight,
       ),
       direction: DismissDirection.endToStart,
-     onDismissed: (direction){
-       Provider.of<Cart>(context, listen: false).deleteItem(productId);
-     },
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Warning'),
+            content: SingleChildScrollView(
+              child: Text('Do you want to permanently dismiss the item ?'),
+            ),
+            actions: [
+              FlatButton(
+                child: Text('No'),
+                onPressed: () {
+                  return Navigator.of(ctx).pop(false);
+                },
+              ),
+              FlatButton(
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+                onPressed: () {
+                  return Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      onDismissed: (direction) {
+        Provider.of<Cart>(context, listen: false).deleteItem(productId);
+      },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(
