@@ -37,7 +37,8 @@ jobs:
 
   upload_appbundle:
     name: Upload APK
-      uses: actions/upload-artifact@master
-      with:
-        name: apk-build
-        path: build/app/outputs/apk/release
+    steps:
+      - uses: actions/upload-artifact@master
+        with:
+          name: apk-build
+          path: build/app/outputs/apk/release
