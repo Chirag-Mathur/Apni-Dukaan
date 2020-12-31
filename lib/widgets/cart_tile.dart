@@ -36,7 +36,7 @@ class CartTile extends StatelessWidget {
           builder: (ctx) => AlertDialog(
             title: Text('Warning'),
             content: SingleChildScrollView(
-              child: Text('Do you want to permanently dismiss the item ?'),
+              child: Text('Do you want to permanently remove the item ?'),
             ),
             actions: [
               FlatButton(
