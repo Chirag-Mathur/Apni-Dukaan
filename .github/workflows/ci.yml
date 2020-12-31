@@ -37,6 +37,7 @@ jobs:
 
   upload_appbundle:
     name: Upload APK
+    needs: [build_appbundle]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/upload-artifact@master
