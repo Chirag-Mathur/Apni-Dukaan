@@ -40,20 +40,16 @@ class ProductsProvider with ChangeNotifier {
 
   var _showFavouritesOnly = false;
 
-
-
   List<Product> get items {
-    if(_showFavouritesOnly){
+    if (_showFavouritesOnly) {
       return _items.where((element) => element.isFavourite).toList();
     }
     return [..._items];
   }
 
-
   List<Product> get favouriteItems {
     return _items.where((element) => element.isFavourite).toList();
   }
-  
 
   // void showFavouritesOnly(){
   //   _showFavouritesOnly = true;
@@ -65,12 +61,19 @@ class ProductsProvider with ChangeNotifier {
   //    notifyListeners();
   // }
 
-  Product findById(String id)
-  {
+  Product findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  void appProducts (){
+  void addProducts(Product product) {
+    var _newProduct = Product(
+      description: product.description,
+      title: product.title,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      id: DateTime.now().toString(),
+    );
+    _items.add(_newProduct);
     notifyListeners();
   }
 }
