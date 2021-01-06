@@ -27,6 +27,7 @@ class ManageOrdersScreen extends StatelessWidget {
         itemBuilder: (_, i) => Column(
           children: [
             UserProductTile(
+              products.items[i].id,
               products.items[i].imageUrl,
               products.items[i].title,
             ),
