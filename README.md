@@ -8,10 +8,11 @@ A shop app to order products.
 <li> Preview Items </li>
 <li> Add to Cart Feature </li>
 <li> ORDER NOW feature </li>
+ <li> Editing Items</li>
+<li> Adding new Items Items </li>
 </ul>
 
 ## Features in ⏳
  <ul>
-<li> Editing Items</li>
-<li> Adding new Items Items </li>
+<li> Adding Backend to the App</li>
 </ul>
