@@ -6,6 +6,11 @@ import '../widgets/app_drawer.dart';
 import '../widgets/user_product_tile.dart';
 import '../screens/edit_product_screen.dart';
 
+Future<void> _refreshProducts(BuildContext context) async {
+  await Provider.of<ProductsProvider>(context, listen: false)
+      .fetchAndSyncProducts();
+}
+
 class ManageOrdersScreen extends StatelessWidget {
   static const routeName = '/managescreen';
   @override
@@ -22,17 +27,20 @@ class ManageOrdersScreen extends StatelessWidget {
         },
       ),
       drawer: AppDrawer(),
-      body: ListView.builder(
-        itemCount: products.items.length,
-        itemBuilder: (_, i) => Column(
-          children: [
-            UserProductTile(
-              products.items[i].id,
-              products.items[i].imageUrl,
-              products.items[i].title,
-            ),
-            Divider(),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: ListView.builder(
+          itemCount: products.items.length,
+          itemBuilder: (_, i) => Column(
+            children: [
+              UserProductTile(
+                products.items[i].id,
+                products.items[i].imageUrl,
+                products.items[i].title,
+              ),
+              Divider(),
+            ],
+          ),
         ),
       ),
     );
