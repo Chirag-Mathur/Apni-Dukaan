@@ -38,6 +38,7 @@ class ProductsItem extends StatelessWidget {
               ),
               color: Theme.of(context).accentColor,
               onPressed: () {
+                print(product.id);
                 product.toggleFavouriteButton();
               },
             ),

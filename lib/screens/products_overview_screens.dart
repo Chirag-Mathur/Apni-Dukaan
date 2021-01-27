@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:shop_app/provider/products_provider.dart';
 import 'package:shop_app/widgets/app_drawer.dart';
-import '../widgets/products_grid.dart';
-import '../widgets/badge.dart';
+
 import '../provider/cart.dart';
+import '../widgets/badge.dart';
+import '../widgets/products_grid.dart';
+import '../provider/products_provider.dart';
 import 'cart_screens.dart';
 
 enum FilterOptions {
@@ -18,7 +21,33 @@ class ProductsOverviewScreen extends StatefulWidget {
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  var _isInit = true;
   var _showOnlyFavourite = false;
+  var _isLoading = true;
+
+  // @override
+  // void initState() {
+  //   Provider.of<ProductsProvider>(context, listen: false)
+  //       .fetchAndSyncProducts();
+  //   super.initState();
+  // }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if (_isInit) {
+      Provider.of<ProductsProvider>(context)
+          .fetchAndSyncProducts()
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,16 +86,20 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               //value : 1.toString(),
             ),
             child: IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: (){
-                  Navigator.of(context).pushNamed(CartScreen.routeName);
-                },
-              ),
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
           )
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductsGrid(_showOnlyFavourite),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showOnlyFavourite),
     );
     //return scaffold;
   }
