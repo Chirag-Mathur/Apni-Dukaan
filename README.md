@@ -10,9 +10,10 @@ A shop app to order products.
 <li> ORDER NOW feature </li>
  <li> Editing Items</li>
 <li> Adding new Items Items </li>
+<li> Added Firebase Backend </li> 
 </ul>
 
 ## Features in ⏳
  <ul>
-<li> Adding Backend to the App</li>
+<li> Adding User Authentication to the App</li>
 </ul>
